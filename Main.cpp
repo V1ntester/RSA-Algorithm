@@ -148,8 +148,18 @@ int main() {
         std::cout << "Введите сообщение: ";
         std::cin >> message;
 
+        if (message < 0) {
+          std::cout << "\nВведено некорректное значение\n\n";
+          break;
+        }
+
         std::cout << "Введите ключ: ";
         std::cin >> key.value >> key.product;
+
+        if (key.value < 0 || key.product < 0) {
+          std::cout << "\nВведены некорректные значения\n\n";
+          break;
+        }
 
         message = Encrypt(message, key);
 
@@ -163,8 +173,18 @@ int main() {
         std::cout << "Введите сообщение: ";
         std::cin >> message;
 
+        if (key.value < 0 || key.product < 0) {
+          std::cout << "\nВведены некорректные значения\n\n";
+          break;
+        }
+
         std::cout << "Введите ключ: ";
         std::cin >> key.value >> key.product;
+
+        if (key.value < 0 || key.product < 0) {
+          std::cout << "\nВведены некорректные значения\n\n";
+          break;
+        }
 
         message = Descrypt(message, key);
 
