@@ -24,11 +24,23 @@ int InvertByMod(int value, int mod) {
 
   return (u2 + mod) % mod;
 }
+
+int ExponentiationByMod(int value, int degree, int mod) {
+  int currentDegree = 0;
+  int result = 1;
+
+  while (currentDegree < degree) {
+    result = (result * value) % mod;
+    ++currentDegree;
+  }
+
+  return result;
+}
 }  // namespace
 
 namespace Model {
-void GenerateKey(Key *keys, int firstNum, int secondNum) {
-  int eulerFunctionValue = (firstNum - 1) * (secondNum - 1);
+void GenerateKey(Key *keys, int firstNumber, int secondNumber) {
+  int eulerFunctionValue = (firstNumber - 1) * (secondNumber - 1);
   int e = 0;
 
   std::random_device r{};
@@ -42,33 +54,17 @@ void GenerateKey(Key *keys, int firstNum, int secondNum) {
   }
 
   int d = InvertByMod(e, eulerFunctionValue);
-  int product = firstNum * secondNum;
+  int product = firstNumber * secondNumber;
 
   keys[0] = {e, product};
   keys[1] = {d, product};
 }
 
 int Encrypt(int message, Key key) {
-  int degree = 0;
-  int result = 1;
-
-  while (degree < key.value) {
-    result = (result * message) % key.product;
-    ++degree;
-  }
-
-  return result;
+  return ExponentiationByMod(message, key.value, key.product);
 }
 
 int Descrypt(int message, Key key) {
-  int degree = 0;
-  int result = 1;
-
-  while (degree < key.value) {
-    result = (result * message) % key.product;
-    ++degree;
-  }
-
-  return result;
+  return ExponentiationByMod(message, key.value, key.product);
 }
 }  // namespace Model

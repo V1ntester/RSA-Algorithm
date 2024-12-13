@@ -1,36 +1,24 @@
 #include <cstddef>
 #include <iostream>
 
-
 #include "Controller.h"
 #include "Key.h"
+#include "Navigation.h"
 
 using std::size_t;
 
+namespace {
+  size_t kNavigationItemsAmount = 3;
+}
+
 int main() {
-  char userInput = ' ';
+    Navigation::Item navigationItems[] = {
+        {.name = "Сгенерировать ключ", .key = 'a',  .functionPtr = Controller::GenerateKey },
+        {.name = "Шифровать", .key = 'b', .functionPtr = Controller::Encrypt},
+        {.name = "Дешифровать", .key = 'c', .functionPtr = Controller::Descrypt},
+    };
 
-  while (userInput != 'q') {
-    std::cout
-        << "Доступные действия:\na — сгенерировать ключ\nb — зашифровать\nc — "
-           "расшифровать\nq — выход\n\nВведите команду: ";
+    Navigation::Init(navigationItems, kNavigationItemsAmount);
 
-    std::cin >> userInput;
-
-    switch (userInput) {
-      case 'a':
-        Controller::GenerateKey();
-        break;
-      case 'b':
-        Controller::Encrypt();
-        break;
-      case 'c':
-        Controller::Descrypt();
-        break;
-      default:
-        break;
-    }
-  }
-
-  return 0;
+    return 0;
 }
