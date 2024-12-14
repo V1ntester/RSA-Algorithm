@@ -1,7 +1,6 @@
 #include "Navigation.h"
 
 #include <cstddef>
-#include <cstring>
 #include <iostream>
 
 namespace {
